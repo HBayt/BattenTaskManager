@@ -1,0 +1,40 @@
+RedBeanPHP\OODBBean Object ( [properties:protected
+] => Array ( [id
+] => 4 [name
+] => Halide BAYTAR / NONE [email
+] => halide.baytar@battenberg.ch [group_id
+] => 1 [weekdays
+] => [
+    "Monday",
+    "Tuesday",
+    "Wednesday"
+] [done_task
+] => ) [__info:protected
+] => Array ( [type
+] => user [sys.id
+] => id [sys.orig
+] => Array ( [id
+] => 4 [name
+] => Halide BAYTAR / NONE [email
+] => halide.baytar@battenberg.ch [group_id
+] => 1 [weekdays
+] => [
+    "Monday",
+    "Tuesday",
+    "Wednesday"
+] [done_task
+] => ) [tainted
+] => [changed
+] => [changelist
+] => Array ( ) [model
+] => [data.bundle
+] => Array ( ) ) [beanHelper:protected
+] => RedBeanPHP\BeanHelper\SimpleFacadeBeanHelper Object ( ) [fetchType:protected
+] => [withSql:protected
+] => [withParams:protected
+] => Array ( ) [aliasName:protected
+] => [via:protected
+] => [noLoad:protected
+] => [all:protected
+] => [castProperty:protected
+] => ) 
