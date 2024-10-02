@@ -8,20 +8,19 @@
 <!-- ------------------------------------------------- -->    
 <!-- CRUD UPDATE MODAL WINDOW -->     
 <!-- ------------------------------------------------- -->   
-<div class="modal fade" id="updateModal-<?php echo $u->id ?>" tabindex="-1" role="dialog" aria-labelledby="ModalCreateUser" aria-hidden="true">
+<div class="modal fade" id="updateModal-<?php echo $u->id ?>" tabindex="-1" role="dialog" aria-labelledby="ModalUpdateUser" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
 
 
       <div class="modal-header">
-        <h2 class="modal-title" id="ModalCreateUser">Update user</h2>
-
+        <h5 class="modal-title fs-3 luckiest" id="ModalUpdateUser"><span style="color:blue;">Update user<br><?php echo $u->name?></span></h5>
         <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-
       </div>
+      <br>
 
 
       <form method="POST">
@@ -34,7 +33,7 @@
 
              <!-- $_POST['name'] --> 
             <div class="form-group">
-                <label><h4>Firstname & lastname</h4></label>
+                <label><h5><span style="color:brown;">Firstname & lastname</span></h5></label>
                 <input type="text" class="form-control" id="name" name="name" value="<?php echo $u->name ?>" placeholder="Enter name" required>
                 </br>
             </div>
@@ -42,7 +41,7 @@
 
              <!-- $_POST['email'] --> 
             <div class="form-group">
-                <label for="exampleInputEmail1"><h4>Email address</h4></label>
+                <label><h5><span style="color:brown;">Email address</span></h5></label>
                 <input type="email" class="form-control" id="email" name="email" value="<?php echo $u->email ?>" placeholder="Enter email" required>
                 </br>
             </div>
@@ -51,7 +50,7 @@
 
             <!-- $_POST['weekdays'] --> 
             <div class="form-group mt-3">
-                <label><h4>Weekdays </h4></label>
+                <label><h5><span style="color:brown;">Weekdays</span></h5></label>
                 <div class="form-check">
                     <input class="form-check-input" name="weekdays[]" type="checkbox" value="Monday" <?php if (json_decode($u->weekdays) && in_array('Monday',json_decode($u->weekdays))) { echo 'checked';} ?>>
                     <label class="form-check-label">
@@ -97,7 +96,7 @@
             <!-- Check list to choose a group -->   
 
             <div class="form-group">
-                <label><h4>Assigned group </h4></label>
+                <label><h5><span style="color:brown;">Assigned group </span></h5></label>
                 <?php foreach ( $groups as $g ){ ?>
                     <div class="form-check">
                         <input 

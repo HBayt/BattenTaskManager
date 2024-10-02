@@ -1,11 +1,5 @@
 <section class="container mt-5">
 
-<?php  
-    // var_dump($taskeds) ; 
-?> 
-
-
-
 <!-- ------------------------------------------------- -->    
 <!-- Page title & Button Create (Insert into db.table ) -->     
 <!-- ------------------------------------------------- -->      
@@ -16,8 +10,6 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskedModal" style="float: right;">Create </button>
     <br><br>
     <hr>
-
-
 </div>
 
 <div class="container alert alert-warning">
@@ -97,8 +89,7 @@
 
                     <!-- FORM  -->
                 <form method="POST">
-                    <input type="hidden"  name="id_tasked"  value="<?php echo $tasked['id']?>">                   
-
+            
                     <!-- -------------- -->
                     <!-- ACTION UPDATE  -->
                     <!-- -------------- -->
@@ -110,15 +101,14 @@
                     <!-- BUTTON DELETE  -->
                     <!-- -------------- -->
                     <td>
-                        <button type="submit" class="btn btn-secondary" value="delete_tasked" name="delete_tasked">Delete</button>
-                    </td>  
-                    
-                </form>    
+                        <?php require 'partials/modalDeleteTasked.php';?>
+                    </td>   
+  
+                </form>   
             </tr>
         <?php } ?>
     </tbody>
     </table>
-   
 </section> 
 
 
@@ -132,8 +122,8 @@
 		<div class="modal-content">
 		
             <div class="modal-header">
-                <h5 class="modal-title fs-3 luckiest" id="CreateModalLabel">Assign task to user</h5>
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Assign task to user</span></h5>
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -152,7 +142,7 @@
 
                     <!-- START DATE -->   
                     <div class="form-group">
-                    <label><h4>Select start date</h4></label>
+                    <h5><span style="color:brown;">Select start date</span></h5>
                         <input type="text" class="form-control" id="start_datePicker" name="start" value="" placeholder="start ..." required><!-- $_POST['start'] -->
                         <br> 
                         <br> 
@@ -162,7 +152,7 @@
 					<!--USER  -->   
                     <!-- dropdown list to choose a User to be assigned  -->   <!-- $_POST['selected_userId'] -->  
 					<div class="form-group">
-						<label><h4>User to be assign</h4></label>
+                        <h5><span style="color:brown;">User to be assign</span></h5>
                         <select name="selected_userId" id="id_selectUser" class="form-control" >
                             <optgroup label="Select an user" class="form-control" >
                                 <?php foreach ( $users as $u ){ ?>
@@ -178,7 +168,7 @@
 					<!-- TASK  -->    
 					<!-- Check list to choose a TASK -->   <!-- $_POST['group'] --> 
 					<div class="form-group">
-						<label><h4>Task to be assign </h4></label>
+                        <h5><span style="color:brown;">Task to be assign </span></h5>
 						<?php foreach ( $tasks as $t ){ ?>
 							<div class="form-check">
 								<input 

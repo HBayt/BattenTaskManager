@@ -42,9 +42,17 @@ function deleteTasked($id) {
     R::trash( $tasked );
 }
 
+/* 
+function deleteTasked($id) {
+    $tasked = R::load('taskeds', $id); 
+    if ($tasked->id == 0) {
+        echo "Task not found!";
+        return;
+    }
+    R::trash($tasked);
+}
 
-
-
+*/ 
 //________________________________________________________
 // INSERT INTO TABLE ADMIN A NEW ADMIN (ROW)
 //________________________________________________________

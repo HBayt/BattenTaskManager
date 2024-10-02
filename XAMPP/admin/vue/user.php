@@ -137,8 +137,8 @@ HTML;
                         <!-- Modal header --> 
                         <div class="modal-header">
                             <!-- Modal window / Title --> 
-                            <h5 class="modal-title fs-3 luckiest" id="exampleModalLabel">Are you sure ?</h5>
-                            <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                            <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Are you sure ?</span></h5>
+                            <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>                        
@@ -174,8 +174,8 @@ HTML;
             <!-- Modal header --> 
             <div class="modal-header">
                 <!-- Modal window / Title --> 
-                <h5 class="modal-title fs-3 luckiest" id="exampleModalLabel">New user</h5>
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title fs-3 luckiest" id="exampleModalLabel"><span style="color:blue;">New user</span></h5>
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -187,7 +187,7 @@ HTML;
 
                     <!-- Firstname and lastname -->    
                     <div class="form-group">
-                        <label><h4>Firstname & lastname</h4></label>
+                        <label><h5><span style="color:brown;">Firstname & lastname</span></h5></label>
                         <input type="text" class="form-control" id="name" name="name" value="" placeholder="Name" required> <!-- $_POST['name'] --> 
                         <br>
                     </div>
@@ -195,14 +195,14 @@ HTML;
 
                     <!-- Email  -->    
                     <div class="form-group">
-                        <label for="exampleInputEmail1"><h4>Email address</h4></label>
+                        <label for="email"><h5><span style="color:brown;">Email address</span></h5></label>
                         <input type="email" class="form-control" id="email" name="email" value="" placeholder="Enter email" required> <!-- $_POST['email'] --> 
                         <br>
                     </div>
 
                     <!-- Weekdays /   $_POST['weekdays'] --> 
                     <div class="form-group">
-                        <label><h4>Weekdays</h4></label>
+                        <label><h5><span style="color:brown;">Weekdays</span></h5></label>
                         <div class="form-check">
                             <input class="form-check-input" name="weekdays[]" type="checkbox" value="Monday"  checked>
                             <label class="form-check-label">
@@ -246,7 +246,7 @@ HTML;
                     <!-- Group  -->    
                     <!-- Check list to choose a group -->   <!-- $_POST['group'] --> 
                     <div class="form-group">
-                        <label><h4>Assigned group</h4></label>
+                        <label><h5><span style="color:brown;">Assigned group</span></h5></label>
                         <?php foreach ( $groups as $g ){ ?>
                             <div class="form-check">
                                 <input 

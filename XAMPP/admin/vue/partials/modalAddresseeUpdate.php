@@ -18,7 +18,8 @@
       <div class="modal-header">
 
         <!--FORM.H5 - POP-UP TITLE -->
-        <h1 class="modal-title fs-3 luckiest" id="ModalUpdateAddressee">Update recipient</h1>
+        <h5 class="modal-title fs-3 luckiest" id="ModalUpdateAddressee"><span style="color:blue;">Update recipient</span></h5>
+        <br>
         <br>
 
         <!--FORM.BUTTON (CLOSE POP-UP) -->
@@ -39,13 +40,13 @@
           <br>
 
           <div class="form-group">
-              <label  for="addr_name"><h4>Name (Recipient, Addressee)</h4></label>
+              <label  for="addr_name"><h5><span style="color:brown;">Name of beneficiary / recipient</span></h5></label> 
               <input type="text" class="form-control" id="addr_name" name="addr_name" value="<?php echo $recipient->name ?>" placeholder="Enter name">
               <br>
           </div>
 
           <div class="form-group">
-              <label for="addr_email"><h4>Email address</h4></label>
+              <label  for="addr_email"><h5><span style="color:brown;">Email address of beneficiary / recipient</span></h5></label> 
               <input type="email" class="form-control" id="addr_email" name="addr_email" value="<?php echo $recipient->email ?>" placeholder="Enter email">
               <br>
           </div>

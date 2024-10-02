@@ -15,11 +15,11 @@
             <div class="modal-header">
 
                 <!--FORM.H5 - POP-UP TITLE -->
-                <h5 class="modal-title fs-3 luckiest" id="exampleModalLabel">Update vacation</h5>
+                <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Update vacation<br></span></h5>
                 <br>
 
                 <!--FORM.BUTTON (CLOSE POP-UP) -->
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -44,7 +44,7 @@
                             $vac_start = new DateTime($vacation['start']); 
                         ?>
 
-                        <label for="start"><h4>Start date </h4></label>
+                        <label for="start"><h5><span style="color:brown;">Start date</span></h5></label>
                         <input 
                             type="text" 
                             class="form-control" 
@@ -59,7 +59,7 @@
                 <!--FORM.INPUT (VACATION END ) -->
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="end"><h4>End date </h4></label>
+                        <label for="end"><h5><span style="color:brown;">End date</span></h5></label>
                         <input 
                             type="text" 
                             class="form-control" 
@@ -75,7 +75,7 @@
                 <!--FORM.INPUT (VACATION User email ) -->
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="email"><h4>User email</h4></label>
+                        <label for="email"><h5><span style="color:brown;">User email</span></h5></label>
                         <output type="text" class="form-control" id="email" name="email"
                             value="<?php echo$vacation['email'] ?>"
                             placeholder="email"> <?php echo$vacation['email'] ?></output>

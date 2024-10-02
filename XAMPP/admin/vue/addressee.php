@@ -157,12 +157,11 @@ HTML;
 
                                             <div class="modal-header">
                                                 <!-- Modal DELETE AN ADDRESSEE -->
-                                                <h5 class="modal-title fs-1 luckiest" id="modal_deleteAddressee">Are you sure ?</h5>
-                                                <button type="button" class="close fs-1 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                                                <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Are you sure ?</span></h5>
+                                                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                           
 
                                             <form method="POST"><!-- Form html --> 
                                                 <div class="modal-footer">

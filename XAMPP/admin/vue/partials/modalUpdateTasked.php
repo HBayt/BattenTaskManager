@@ -11,8 +11,8 @@
 		
             <!-- Modal header --> 
             <div class="modal-header">
-                <h1 class="modal-title fs-3 luckiest" id="UpdateModalLabel">Update tasked (task/user)</h1>
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title fs-4 luckiest" id="UpdateModalLabel"><span style="color:blue;">Update tasked (task/user)</span></h5>
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -27,7 +27,7 @@
 
                     <!-- Datepicker Input with Unique ID -->
                     <div class="form-group">
-                        <label for="start"><h4>Selected start date</h4></label>
+                        <label for="start"><h5><span style="color:brown;">Selected start date</span></h5></label>
                         <input type="text" class="form-control" id="datePicker_start_<?php echo $tasked['id']; ?>" name="datePicker_start" 
                                value="<?php echo (new DateTime($tasked['start']))->format("d.m.Y") ?>"
                                placeholder="Start date" required>
@@ -35,12 +35,9 @@
                         <br>                              
                     </div>
 
-                    
-
-
                     <!-- User Dropdown -->
                     <div class="form-group">
-                        <label><h4>Assigned user</h4></label>
+                        <label for="selected_userId"><h5><span style="color:brown;">Assigned user</span></h5></label>
                         <select name="selected_userId" class="form-control">
                             <optgroup label="Select an user">
                                 <?php foreach ($users as $u) { ?>
@@ -56,7 +53,7 @@
 
                     <!-- Task Dropdown -->
                     <div class="form-group">
-                        <label><h4>Task to be assigne</h4></label>
+                        <label for="selected_taskId"><h5><span style="color:brown;">Task to be assigne</span></h5></label>
                         <select name="selected_taskId" class="form-control">
                             <optgroup label="Select a task">
                                 <?php foreach ($tasks as $t) { ?>
@@ -73,7 +70,8 @@
 
                     <!-- Radio Buttons -->
                     <div class="form-group">
-                        <h4><label for="contacted">Contacted (via email)?</label></h4>
+                        <label for="contacted"><h5><span style="color:brown;">Contacted (via email)?</span></h5></label>
+                        <br>
                         <input type="radio" name="radio_contacted" value="NO" <?php echo $tasked["contacted"] == 'NO' ? "checked" : ""; ?>> NO  
                         <br>
                         <input type="radio" name="radio_contacted" value="YES" <?php echo $tasked["contacted"] == 'YES' ? "checked" : ""; ?>> YES

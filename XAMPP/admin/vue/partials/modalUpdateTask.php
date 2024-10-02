@@ -18,11 +18,11 @@
             <div class="modal-header">
 
                 <!--FORM.H1 - POP-UP TITLE -->
-                <h1 class="modal-title fs-3 luckiest" id="ModalUpdateAddressee">Update Task</h1>
+                <h5 class="modal-title fs-4 luckiest" id="ModalUpdateAddressee"><span style="color:blue;">Update Task</span></h5>
                 <br>
 
                 <!--FORM.BUTTON (CLOSE POP-UP) -->
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
@@ -41,19 +41,20 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <label><h4>Title</h4></label>
+                            <label><h5><span style="color:brown;">Title</span></h5></label>
                             <input type="text" class="form-control" id="name" name="name" value="<?php echo $t->name?>" placeholder="Title">
                             <br>
                         </div>
 
                         <div class="form-group">
-                            <label><h4>Label / UID </h4></label>
+                            <label><h5><span style="color:brown;">Label / UID </span></h5></label>
                             <input type="text" class="form-control" id="label" name="label" value="<?php echo $t->libelle?>" placeholder="Label / UID">
                             <br>
                         </div>
 
                         <div class="form-group mt-3">
                             <label><h4>Color</h4></label>
+                            <label><h5><span style="color:brown;">Color</span></h5></label>
                             <input type="text" class="form-control color-picker" id="color" name="color" value="<?php echo $t->color?>" placeholder="color">
                             <button class="picker btn btn-primary" height="20px" width="20px"></button>
                             <br>
@@ -63,7 +64,7 @@
                         <!-- Checkbox Weekdays --> 
                         <!-- ----------------- --> 
                         <div class="form-group mt-3">
-                            <label><h4>Weekday</h4></label>
+                            <label><h5><span style="color:brown;">Weekday</span></h5></label>
                             <div class="form-check">
                                 <input class="form-check-input" name="weekdays[]" type="checkbox" value="Monday" <?php if (in_array('Monday',json_decode($t->weekdays))) { echo 'checked';} ?>>
                                 <label class="form-check-label">
@@ -100,7 +101,7 @@
                     <!-- Checkbox Groups   --> 
                     <!-- ----------------- --> 
                     <div class="form-group mt-3">
-                        <label><h4>Group</h4></label>
+                        <label><h5><span style="color:brown;">Group</span></h5></label>
                         <!-- < ?php echo "<br>"?> print_r($t->sharedGroup); // if (checkRelation($g, $t->sharedGroup)) { echo 'checked';}  --> 
 
                         <?php  foreach ( $group as $g ){    ?>                       

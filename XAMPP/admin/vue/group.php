@@ -57,8 +57,8 @@
                         <!-- Modal header --> 
                         <div class="modal-header">
                             <!-- Modal window / Title --> 
-                            <h5 class="modal-title fs-1 luckiest" id="exampleModalLabel">Are you sure ?</h5>
-                            <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                            <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Are you sure ?</span></h5>
+                            <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -78,6 +78,9 @@
                     </div>
                 </div>
                 </td>
+
+
+                <!-- BOUTTON GROUP USERS  --> 
                 <td><a href="/admin/user.php?group_id=<?php echo $g->id ?>"><button type="button" class="btn btn-primary">Group users</button></a></td>
                 </tr>
                 
@@ -96,23 +99,22 @@
                 <!-- Modal header --> 
                 <div class="modal-header">
                     <!-- Modal window / Title --> 
-                    <h5 class="modal-title fs-1 luckiest" id="exampleModalLabel">New group</h5>
-                    <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">New group</span></h5>
+                    <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
 
-
                 <form method="POST">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label> Group label</label>
+                            <label for="start"><h5><span style="color:brown;">Group label</span></h5></label>
                             <input type="text" class="form-control" id="label" name="label" value="" placeholder="Group label / UID" required>
                         </div>
                         <br>
                         <div class="form-group">
-                            <label>Name </label>
+                            <label for="start"><h5><span style="color:brown;">Name</span></h5></label>
                             <input type="text" class="form-control" id="name" name="name" value="" placeholder="Group name" required>
                         </div>
                     </div>

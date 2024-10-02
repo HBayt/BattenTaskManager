@@ -27,14 +27,11 @@ if($_SESSION["login"]) {
     $numOfTaskeds = countTaskeds (); 
     
 
-
     // IF FORM HTML SENDED -> BUTTON SEND CLICKED (CRUD INSTRUCTIONS )
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-
         // IF INPUT NAME = 'action' 
         if(isset($_POST['action'])){
-
 
             // CREATE TASKED 
             // IF INPUT NAME = 'action'  [FORM SEND] 
@@ -58,15 +55,11 @@ if($_SESSION["login"]) {
                 $start = DateTime::createFromFormat($stringFormat, $startString)->format($setDbFormat);
                 
                 createTasked ($start, $checked_taskId, $selected_userId) ; 
-
-            // }elseif($_POST['action'] == 'updateTasked' && !empty($_POST['radio_contacted']) && !empty($_POST['datePicker_start']) && !empty($_POST['selected_userId']) && !empty($_POST['selected_taskId'])) 
-           
+                echo "<div class='alert alert-primary' role='alert'>New Tasked created successfully</div>";// Message de confirmation   
             }elseif($_POST['action'] == 'updateTasked' && isset($_POST['radio_contacted']) && isset($_POST['datePicker_start']) && isset($_POST['selected_userId']) && isset($_POST['selected_taskId'])) 
             {
 
                 // UPDATE TASKED           
-
-                // echo "<h1> Ttasked: </h1>";  
                 $tasked_id = $_POST['id']; ; 
                 $selected_userId =  $_POST['selected_userId']; // selected_userId
                 $selected_taskId = $_POST['selected_taskId']; 
@@ -88,21 +81,19 @@ if($_SESSION["login"]) {
                 $start = DateTime::createFromFormat($stringFormat, $startString)->format($setDbFormat);
                 
                 updateTasked ($tasked_id, $start, $selected_userId, $selected_taskId, $radio_contacted) ; 
+                echo "<div class='alert alert-primary' role='alert'>Tasked (ID = ".$tasked_id.") updated successfully</div>";// Message de confirmation   
+            }elseif($_POST['action'] == 'deleteTasked' && isset($_POST['tasked_id'])) {
+                // DELETE TASKED     
+                $tasked_id = $_POST['tasked_id']; 
+                deleteTasked($tasked_id);
+                echo "<div class='alert alert-primary' role='alert'>Tasked (ID = ".$tasked_id.") removed successfully</div>";// Message de confirmation                
+                // echo '<h3><span style="color:red;">'."Suppression de Tasked (ID = ".$tasked_id.") réussie".'<br></span></h3>';
+                // echo '<div class="alert alert-primary" role="alert">Suppression de Tasked (ID ='.$tasked_id.') réussie</div>';
 
 
-            }
-            
-            if(isset($_POST['delete_tasked']) && isset($_POST['id_tasked'])){
-
-                // IF USER CLICKED ON BUTTON DELETE AND IF TASKED_ID IS SET 
-                // DELETE THE TASK USING THE TASK ID 
-                deleteTasked($_POST['id_tasked']); 
-            }
-
-
-
-
-
+            } else {
+                echo "<div class='alert alert-danger' role='alert'>Missing parameters for suppression.</div>";// Message de confirmation      
+            }           
 
 
         }// ACTION 

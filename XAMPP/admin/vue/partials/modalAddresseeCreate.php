@@ -16,7 +16,7 @@
             <div class="modal-header">
 
                 <!--FORM.H1 - POP-UP TITLE -->
-                <h1 class="modal-title fs-3 luckiest" id="ModalUpdateAddressee">Create new Addressee</h1>
+                <h5 class="modal-title fs-3 luckiest" id="ModalUpdateAddressee"><span style="color:blue;">Create new Addressee</span></h5>
                 <br>
 
                 <!--FORM.BUTTON (CLOSE POP-UP) -->
@@ -35,14 +35,14 @@
 
                     <!-- INPUT NAME OF ADDRESSEE -->
                     <div class="form-group">
-                        <label  for="addr_name"><h4>Name (Recipient, Addressee)</h4></label>
+                        <label  for="addr_name"><h5><span style="color:brown;">Name of beneficiary / recipient</span></h5></label> 
                         <input type="text" class="form-control" id="addr_name" name="addr_name" value="" placeholder="Name">
                         <br>
                     </div>
 
                     <!-- Modal EMAIL OF ADDRESSEE -->
                     <div class="form-group">
-                        <label for="addr_email"><h4>Email address</h4></label>
+                        <label  for="addr_email"><h5><span style="color:brown;">Email address of beneficiary / recipient</span></h5></label> 
                         <input type="email" class="form-control" id="addr_email" name="addr_email" value="" placeholder="Enter email">
                         <br>
                     </div>

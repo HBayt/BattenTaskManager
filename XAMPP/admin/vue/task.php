@@ -143,8 +143,8 @@ HTML;
 
 
                                     <div class="modal-header">
-                                        <h5 class="modal-title fs-1 luckiest" id="exampleModalLabel">Are you sure ?</h5>
-                                        <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                                        <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Are you sure ?</span></h5>
+                                        <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -177,8 +177,8 @@ HTML;
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title fs-3 luckiest" id="CreateModalLabel">New Task</h5>
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">New Task</span></h5>
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -189,24 +189,24 @@ HTML;
                 <input type="hidden"  name="action"  value="createTask">
                 <div class="modal-body">
                 <div class="form-group">
-                            <label><h4>Title</h4></label>
+                            <label><h5><span style="color:brown;">Title</span></h5></label>
                             <input type="text" class="form-control" id="name" name="name" value="" placeholder="Title">
                             <br>
                         </div>
                 <div class="form-group">
-                    <label><h4>Task label / UID </h4></label>
+                    <label><h5><span style="color:brown;">Task label / UID </span></h5></label>
                     <input type="text" class="form-control" id="label" name="label" value="" placeholder="Label / UID" required>
                 </div>                
                 <br>
                 <div class="form-group">
-                    <label><h4>Color</h4></label>
+                    <label><h5><span style="color:brown;">Color</span></h5></label>
                     <input type="text" class="form-control" id="color" name="color" value="" placeholder="color" required>
                     <button class="picker btn btn-primary" height="20px" width="20px"></button>
                 </div>
                 <br>
                 <!-- Check list for working days -->     
                 <div class="form-group mt-3">
-                <label><h4>Weekdays</h4></label>
+                <label><h5><span style="color:brown;">Weekdays</span></h5></label>
                     <div class="form-check">
                         <input class="form-check-input" name="weekdays[]" type="checkbox" value="Monday" checked>
                         <label class="form-check-label">
@@ -241,7 +241,7 @@ HTML;
     
                 <!-- Check list to choose a group -->   
                 <div class="form-group mt-3">
-                    <label><h4>Group</h4></label>
+                    <label><h5><span style="color:brown;">Group</span></h5></label>
                     <?php foreach ( $group as $g ){ ?>
                         <div class="form-check">
                             <input class="form-check-input" name="idGroup[]" type="checkbox" value="<?php echo $g->id ?>" id="flexCheckDefault"

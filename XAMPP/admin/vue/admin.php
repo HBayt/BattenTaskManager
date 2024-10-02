@@ -50,8 +50,8 @@
                         <!-- Modal header --> 
                         <div class="modal-header">
                             <!-- Modal window / Title --> 
-                            <h5 class="modal-title fs-1 luckiest" id="exampleModalLabel">Are you sure ?</h5>
-                            <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                            <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Are you sure ?</span></h5>
+                            <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -89,8 +89,8 @@
             <!-- Modal header --> 
             <div class="modal-header">
                 <!-- Modal window / Title --> 
-                <h5 class="modal-title fs-1 luckiest" id="exampleModalLabel">Create</h5>
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Create</span></h5>
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -99,13 +99,13 @@
                 <form method="POST">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Username</label>
+                            <label><h5><span style="color:brown;">Username</span></h5></label>
                             <input type="text" class="form-control" id="name" name="name" value="" placeholder="Name">
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Password</label>
+                            <label><h5><span style="color:brown;">Password</span></h5></label>
                             <input type="password" class="form-control" id="name" name="password" value="" placeholder="Password">
                         </div>
                     </div>

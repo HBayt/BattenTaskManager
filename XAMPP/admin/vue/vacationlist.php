@@ -126,11 +126,11 @@ HTML;
 
             <div class="modal-header">
                 <!--FORM.H5 - POP-UP TITLE -->
-                <h5 class="modal-title fs-3 luckiest" id="exampleModalLabel">New vacation</h5>
+                <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">New vacation</span></h5>
                 <br>
 
                 <!--FORM.BUTTON (CLOSE POP-UP) -->
-                <button type="button" class="close fs-3 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -149,7 +149,7 @@ HTML;
                 <!-- START DATE -->  
                 <div class="modal-body">
                     <div class="form-group">
-                        <label><h4>Start </h4></label>
+                        <label for="start"><h5><span style="color:brown;">Start date</span></h5></label>
                         <input type="text" class="form-control" id="start_datePicker" name="start" value="" placeholder="start ..." required>
                     </div>
                 </div>
@@ -157,7 +157,7 @@ HTML;
                 <!-- END DATE -->  	
                 <div class="modal-body">
                     <div class="form-group">
-                        <label><h4>End </h4></label>
+                        <label for="end"><h5><span style="color:brown;">End date</span></h5></label>
                         <input type="text" class="form-control" id="end_datePicker"  name="end" value="" placeholder="end ..." required>
                     </div>
                 </div>                             
@@ -169,7 +169,7 @@ HTML;
                 <!-- dropdown list to choose a User to be assigned  -->   <!-- $_POST['selected_userId'] -->  
                 <div class="modal-body">
                     <div class="form-group">
-                        <label><h4>User </h4></label>
+                        <label for="selected_userId"><h5><span style="color:brown;">User</span></h5></label>
                         <select name="selected_userId" id="id_selectUser" class="form-control" >
                             <optgroup label="Select an user" class="form-control" >
                                 <?php 
