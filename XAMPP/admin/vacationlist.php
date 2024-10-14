@@ -1,16 +1,12 @@
-<?php
-
+<?php 
+// Update time : 03.10.2024 
+// Author : H. Baytar 
 
 // _______________________________________________
-// FILE admin/vacationlist.php  
-// http://localhost/html/admin/vacationlist.php 
+// FILE admin/admin.php  
+// http://localhost/html/admin/admin.php 
 // _______________________________________________
 
-
-// TESTS 
-// console.log("Message"); console.log(variable); 
-// PHP INTERPRETER STOP TO EXECUTE CODE -> die(); 
-// var_dump(VARIABLE ); 
 
 
 // _______________________________________________
@@ -30,15 +26,11 @@ if($_SESSION["login"]) {
     require '../model/vacation.php';
     require 'vue/partials/header.php';
     include 'vue/partials/nav.php';
-    // var_dump( require '../model/user.php'); 
-
 
     // ______________________________________________________________
     // FOR DROPDOWN lIST OF USER EMAILS 
     // ______________________________________________________________
     $users = getUser() ; 
-
-
 
 
     // ______________________________________________________________
@@ -64,10 +56,15 @@ if($_SESSION["login"]) {
     // ______________________________________________________________
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
+        if(empty($_POST['start']) || empty($_POST['end'])  ){
+            // Afficher un message d'erreur ou renvoyer un message d'erreur
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> <strong>Start date and End date </strong> are required to create a tasked! </div>'; // Message de confirmation     
+        }
+
         // ______________________________________________________________
         // CREATE VACATION 
         // ______________________________________________________________
-        if(isset($_POST['start']) && isset($_POST['end']) && isset($_POST['create_vacation'])){  
+        if(!empty($_POST['start']) && !empty($_POST['end']) && isset($_POST['create_vacation'])){  
 
 
             // String to be converted to DateTime
@@ -80,30 +77,24 @@ if($_SESSION["login"]) {
 
 
             // Convert the string to a DateTime object
-            // $start = DateTime::createFromFormat('d-m-Y', $_POST['start'])->format('Y-m-d');
-            // $end = DateTime::createFromFormat('d-m-Y', '30.12.2024')->format('Y-m-d');     
-            $start = DateTime::createFromFormat($stringFormat, $startString)->format($setDbFormat);
-            $end = DateTime::createFromFormat($stringFormat, $endString)->format($setDbFormat); 
+            $start = DateTime::createFromFormat($stringFormat, $startString)->format($setDbFormat);  // $start = DateTime::createFromFormat('d-m-Y', $_POST['start'])->format('Y-m-d');
+            $end = DateTime::createFromFormat($stringFormat, $endString)->format($setDbFormat); // $end = DateTime::createFromFormat('d-m-Y', '30.12.2024')->format('Y-m-d');  
 
 
             // PROCESSING / HANDLING A USER'S VACATIONS
             if(isset($_POST['selected_userId'])){ 
 
-                // GET SELECTED USER_ID FROM FORM HTML                 
-                $selected_userId =  $_POST['selected_userId']; 
-
-                // LOOK FOR USER 
-                $user =  getUserIdById($selected_userId); // var_dump($user ); die();            
+                $selected_userId =  $_POST['selected_userId']; // Get selected user by his ID from Form HTML 
+                $user =  getUserIdById($selected_userId); // Look for user        
                                                         
             } elseif(isset($user_id)){ 
-                // GET USER 
-                $user = getUserIdById($user_id);  // var_dump($user ); die();                  
-                                                        
+                $user = getUserIdById($user_id);  // Get user                                             
             }
 
-            // CREATE / INSERT INTO DATABASE THE NEW VACATION 
+            // INSERT INTO DATABASE THE NEW VACATION 
             createVacation($user['id'], $start, $end);    
-        } 
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> New <strong>vacation</strong> for <span style="color:green;">'.$user['name'].'</span> created successfully!</div>'; 
+      } 
 
         // ______________________________________________________________
         // UPDATE VACATION
@@ -113,7 +104,8 @@ if($_SESSION["login"]) {
             $u_id = $_POST['user_id']; 
 
             //________________________________________________________________
-            // Form - date format 30.11.2000 | DB - date format 2002-10-23            
+            // To format date of HTML Form view into 30.11.2000 
+            // DB date format ist 2002-10-23            
             //________________________________________________________________
             $formatInput = 'd.m.Y'; // HTML FORM format 
             $formatDb = 'Y-m-d'; // MySQL DB format
@@ -130,20 +122,18 @@ if($_SESSION["login"]) {
             // PROCESSING / HANDLING A USER'S VACATIONS
             //________________________________________________________________
             if(isset($u_id)){ 
-                // GET USER 
-                $user = getUserIdById($u_id);  // var_dump($user ); die();                                                                      
+                $user = getUserIdById($u_id);   // GET USER                                                                   
             } else{
-                // GET EMAIL FROM FORM HTML 
+                
                 $email = (string) $_POST['email']; 
-
-                // LOOK FOR USER 
                 $user = getUserIdByEmail($email); // var_dump($user ); die(); 
             }
 
             //________________________________________________________________
             // UPDATE TABLE VACATIONS ROW IN THE DATABASE 
             //________________________________________________________________
-            updateVacation( $_POST['id_vacation'], $db_startdate, $db_enddate,  $user["id"]) ; 
+            updateVacation( $_POST['id_vacation'], $db_startdate, $db_enddate,  $user["id"]); 
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"><strong>Vacation</strong> for <span style="color:green;">'.$user['name'].'</span> updated successfully!</div>'; 
 
         } 
 
@@ -156,6 +146,7 @@ if($_SESSION["login"]) {
             $user = getUserIdByEmail($email); 
 
             deleteVacation($_POST['id_vacation']);     
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> Selected <strong>vacation</strong> for <span style="color:green;">'.$user['name'].' </span> deleted successfully!</div>';
         }
 
 
@@ -168,17 +159,22 @@ if($_SESSION["login"]) {
             // GET ALL USER VACATIONS 
             $vacations = getVacationByUser($u_id);   
             header("Location: /admin/vacationlist.php?user_id=".$user_id."&user_name=".$user_name);
+            exit; 
         } else{
 
             // GET ALL VACATIONS   
             $vacations = getVacations();   
             header("Location: /admin/vacationlist.php"); // header("Refresh:0");   
+            exit; 
                
         }
 
     }// IF FORM CALLED
 
-    // REQUIRED/ INCLUDED FILES 
+    // AFTER EACH PAGE CALL (REQUIRED/ INCLUDED FILES)
+    // OR 
+    // AFTER THE EXECUTION OF AN INSTRUCTION ON THE PAGE (CREATE, DELETE) 
+    global $message;   // Déclare a global $message before include it to view 
     require 'vue/vacationlist.php';
     require 'vue/partials/footer.php';
     
@@ -186,12 +182,7 @@ if($_SESSION["login"]) {
     // ______________________________________
     // ORIGINAL SERVEUR (LINUX) HEADER 
     // ______________________________________
-    // header("Location: /admin/"); // Original KO sur XAMPP 
-
-    // ______________________________________
-    // DEV LOCAL SERVEUR (LOCAL XAMPP) HEADER 
-    // ______________________________________
-    header("Location: /admin/"); // OK sur XAMPP | Firefox : http://localhost/html/admin/ 
+    header("Location: /admin/"); 
 } 
 
 

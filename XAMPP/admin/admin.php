@@ -1,4 +1,6 @@
 <?php 
+// Update time : 03.10.2024 
+// Author : H. Baytar 
 
 // _______________________________________________
 // FILE admin/admin.php  
@@ -6,10 +8,6 @@
 // _______________________________________________
 
 
-// TESTS 
-// console.log("Message"); console.log(variable); 
-// PHP INTERPRETER STOP TO EXECUTE CODE -> die(); 
-// var_dump(VARIABLE ); 
 
 // _______________________________________________
 // CREATE SESSSION 
@@ -29,37 +27,46 @@ if($_SESSION["login"]) {
     require '../model/admin.php';
     include 'vue/partials/nav.php';
     
-    // GET ALL ADMINISTRATORS SAVED IN DATABASE TABLE 'ADMIN'
-    $admin = getAdmin(); 
+    $admin = getAdmin(); // Get All admins from databse table 'Admin' 
 
-    // CREATE BUTTON 
-    // IF FORM 'CREATE' A NEW 'ADMIN CALLED (BUTTON CREATE)
-    if(isset($_POST['name']) and isset($_POST['password'])){
+    // ___________________________________________________________________________________
+    // IF FORM HTML SENDED -> SUBMIT BUTTON CLICKED (FOR CRUD INSTRUCTIONS )
+    // ___________________________________________________________________________________
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-        // INSERT INTO DATABASE TABLE 'ADMIN' A NEW 'ADMIN' ROW  
-        createAdmin($_POST['name'], $_POST['password']);
+        // CREATE BUTTON CLICKED
+        if(isset($_POST['name']) and isset($_POST['password'])){
 
+            createAdmin($_POST['name'], $_POST['password']); // Insert into DB a new admin
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> New <strong>administrator</strong> created successfully!</div>'; 
+
+        }
+
+         // DELETE BUTTON CLICKED
+        if (isset($_POST['id_admin'])) {
+            
+            deleteAdmin($_POST['id_admin']); // Delete an existing admin by his ID 
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> Selected <strong>administrator</strong> deleted successfully!</div>'; 
+
+        }
+
+
+        // _________________________________________________________
+        // PAGE REDIRECTION AFTER A CRUD ACTION
         // REDIRECTION / REFRESH TIME
-        header("Location: /admin/admin.php");  // header("Refresh:0"); 
+        // _________________________________________________________
+
+        header("Location: /admin/admin.php"); // header("Refresh:0");    
+        exit;
+
     }
 
-    // IF FORM 'DELETE' CURRENT ADMIN CALLED (BUTTON DELETE)
-    if (isset($_POST['id_admin'])) {
-        // GET ADMIN ID AND DELETE OCCURENCE (ROW) IN THE DATABASE TABLE 
-        deleteAdmin($_POST['id_admin']);
-
-        // REDIRECTION / REFRESH TIME
-        header("Location: /admin/admin.php");  // header("Refresh:0");
-    }
-
-
-    // AFTER EACH PAGE CALL
+    // AFTER EACH PAGE CALL (REQUIRED/ INCLUDED FILES)
     // OR 
     // AFTER THE EXECUTION OF AN INSTRUCTION ON THE PAGE (CREATE, DELETE) 
-   
+    global $message;   // Déclare a global $message before include it to view 
     include 'vue/admin.php';
     require 'vue/partials/footer.php';
-
 
 } 
 else {

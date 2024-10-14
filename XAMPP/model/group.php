@@ -41,15 +41,6 @@ function loadGroup($id) {
 }
 
 /**
- * Deletes the group at the given id
- * @param integer $id of the group to delete 
- */
-function deleteGroup($id) {
-    $group = R::load( 'group', $id ); 
-    R::trash($group);
-}
-
-/**
  * Links a user to a group
  * @param integer $idGroup of the group  
  * @param integer $idUser of the user 
@@ -60,6 +51,30 @@ function addUserToGroup($idGroup, $idUser) {
     $group->ownUserList[] = $user;
     R::store( $group );
 }
+
+// _____________________________________________________________________________________
+// CASCADING DELETE OF GROUP (IDENTIFIED BY ID) 
+// _____________________________________________________________________________________
+/**
+ * Deletes the group at the given id
+ * @param integer $id of the group to delete 
+ */
+function deleteGroup($id) {
+    $group = R::load( 'group', $id ); 
+    $notAssignedGroup  = R::findOne( 'group', ' libelle=?', ["NONE"] ); // Not assigned group / Libelle = NONE 
+
+    // R::exec('DELETE FROM child_table WHERE parent_id = :pid', array('pid' => $parent->id));
+    R::exec('UPDATE group_task SET group_id = :group_id WHERE group_id = :parent_id', array('group_id' => $notAssignedGroup->id,'parent_id' => $id));
+    R::exec('UPDATE user SET group_id = :group_id WHERE group_id = :parent_id', array('group_id' => $notAssignedGroup->id,'parent_id' => $id));
+
+
+    // die(); 
+    R::trash($group);
+}
+
+
+
+
 
 // _____________________________________________________________________________________
 // COUNTING NUMBER OF GROUPS IN THE DATABASE   

@@ -1,3 +1,18 @@
+<!-- ------------------------------------------------- -->    
+<!-- Update time : 03.10.2024  -->  
+<!-- Author : H. Baytar  -->  
+<!-- Confirmation message when CRUD Operations are executed -->     
+<!-- ------------------------------------------------- -->    
+<section class="container mt-5">
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); // Efface le message après l'affichage
+    }
+    ?>
+</section>
+
+
 <?php 
 // Définir le code HTML comme une chaîne de caractères
 $infoMessage = <<<HTML
@@ -70,6 +85,9 @@ HTML;
     </table>
 </form> 
 </div>
+</section>
+
+<section class="container mt-5">
 
 <!-- ------------------------------------------------- -->    
 <!-- Page title & Button Create (Insert into db.table ) -->     
@@ -81,7 +99,7 @@ HTML;
                 <h1><?php echo $numOfTasks;  ?> tasks to perform</h1>   
             </td>
             <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskModal" style="float: right;">Add new</button> 
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskModal" style="float: right;">New task</button> 
             </td>
         </tr>
     </table>
@@ -89,8 +107,8 @@ HTML;
 <!-- ------------------------------------------------- -->    
 <!-- Task list from MySQL DB  -->     
 <!-- ------------------------------------------------- -->    
-<div class="container mt-5">
-    <table class="table">
+<div class="container">
+    <table class="table table-hover table-striped">
             <thead>
                 <tr>
                 <!-- <th scope="col">Label</th> -->   
@@ -266,6 +284,8 @@ HTML;
 
     </div>
 </div>
+</section>
+
 </div>
 
 

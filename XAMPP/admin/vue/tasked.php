@@ -1,3 +1,18 @@
+<!-- ------------------------------------------------- -->    
+<!-- Update time : 03.10.2024  -->  
+<!-- Author : H. Baytar  -->  
+<!-- Confirmation message when CRUD Operations are executed -->     
+<!-- ------------------------------------------------- -->    
+<section class="container mt-5">
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); // Efface le message après l'affichage
+    }
+    ?>
+</section>
+
+
 <section class="container mt-5">
 
 <!-- ------------------------------------------------- -->    
@@ -29,86 +44,88 @@
 <!-- ------------------------------------------------- -->  
 <!-- TASKEDS LIST FROM MYSQL DB --> 
 <!-- ------------------------------------------------- -->  
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Id (tasked)</th>
-            <th scope="col">Task start</th>
-             <th scope="col">Weekday</th>           
-            <th scope="col">Task (label)</th>
-            <th scope="col">Group</th>            
-            <th scope="col">Assigned user</th>
-            <th scope="col">Email sent?</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-
-        </tr>
-    </thead>
-        <!-- TABLE BODY  -->
-    <tbody>
-        <?php foreach ( $taskeds as $tasked ) { 
-            $task = getTaskName($tasked['task_id']);                 
-            
-            ?>
-       
+<div class="container">
+    <table class="table table-hover table-striped">
+        <thead>
             <tr>
-                <td><?php  echo $tasked['id']?> </td>   <!-- id (tasked) -->
-                <td> <?php echo (new DateTime($tasked['start']))->format("d.m.Y") ?></td><!-- start date (tasked) -->
-                <td><!-- Weekday (of task)-->
-                    <?php 
-                        $datas = json_decode($task['weekdays'], TRUE);    
-                        // $tasked_start = (new DateTime($tasked['start']));     
-                        $tasked_start = date('l', strtotime( $tasked['start'])); 
-                        // foreach ($datas as $result) {  if($result == $tasked_start ){ echo $tasked_start."<br>"; }}
-                        echo date('l', strtotime( $tasked_start));
-                    ?> 
-                </td>
-                <td> <?php                     
+                <th scope="col">Id (tasked)</th>
+                <th scope="col">Task start</th>
+                <th scope="col">Weekday</th>           
+                <th scope="col">Task (label)</th>
+                <th scope="col">Group</th>            
+                <th scope="col">Assigned user</th>
+                <th scope="col">Email sent?</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
 
-                        $task_name = $task["libelle"];
-                        echo $task_name ;                        
-                     ?> 
-                </td>
-                <!-- 
-                    task_done(s) 
-                    <td>< ?php echo $tasked['tasked_done']?></td>               
-                -->
-                <td><?php echo $tasked['group_liebelle']?> </td><!-- groupe (task/user)-->
-
-                <td><?php echo $tasked['user_name']?> </td><!-- title (tasked user)-->
-
-                    <?php 
-                    // echo $tasked['contacted']
-                    if($tasked['contacted'] == 'YES'){ ?>
-                        <td style="color:green;"><strong><?=$tasked['contacted'] ?></strong></td>
-                    <?php } else{?>
-                            <td style="color:red;"><?=$tasked['contacted']?></td>
-                    <?php }?>
-
-                </td><!-- user and managers contacted -->
-
-                    <!-- FORM  -->
-                <form method="POST">
-            
-                    <!-- -------------- -->
-                    <!-- ACTION UPDATE  -->
-                    <!-- -------------- -->
-                    <td>
-                        <?php require 'partials/modalUpdateTasked.php';?>
-                    </td>    
-
-                    <!-- -------------- -->
-                    <!-- BUTTON DELETE  -->
-                    <!-- -------------- -->
-                    <td>
-                        <?php require 'partials/modalDeleteTasked.php';?>
-                    </td>   
-  
-                </form>   
             </tr>
-        <?php } ?>
-    </tbody>
+        </thead>
+        <!-- TABLE BODY  -->
+        <tbody>
+            <?php foreach ( $taskeds as $tasked ) { 
+                $task = getTaskName($tasked['task_id']);                 
+                
+                ?>
+        
+                <tr>
+                    <td><?php  echo $tasked['id']?> </td>   <!-- id (tasked) -->
+                    <td> <?php echo (new DateTime($tasked['start']))->format("d.m.Y") ?></td><!-- start date (tasked) -->
+                    <td><!-- Weekday (of task)-->
+                        <?php 
+                            $datas = json_decode($task['weekdays'], TRUE);    
+                            // $tasked_start = (new DateTime($tasked['start']));     
+                            $tasked_start = date('l', strtotime( $tasked['start'])); 
+                            // foreach ($datas as $result) {  if($result == $tasked_start ){ echo $tasked_start."<br>"; }}
+                            echo date('l', strtotime( $tasked_start));
+                        ?> 
+                    </td>
+                    <td> <?php                     
+
+                            $task_name = $task["libelle"];
+                            echo $task_name ;                        
+                        ?> 
+                    </td>
+                    <!-- 
+                        task_done(s) 
+                        <td>< ?php echo $tasked['tasked_done']?></td>               
+                    -->
+                    <td><?php echo $tasked['group_liebelle']?> </td><!-- groupe (task/user)-->
+
+                    <td><?php echo $tasked['user_name']?> </td><!-- title (tasked user)-->
+
+                        <?php 
+                        // echo $tasked['contacted']
+                        if($tasked['contacted'] == 'YES'){ ?>
+                            <td style="color:green;"><strong><?=$tasked['contacted'] ?></strong></td>
+                        <?php } else{?>
+                                <td style="color:red;"><?=$tasked['contacted']?></td>
+                        <?php }?>
+
+                    </td><!-- user and managers contacted -->
+
+                        <!-- FORM  -->
+                    <form method="POST">
+                
+                        <!-- -------------- -->
+                        <!-- ACTION UPDATE  -->
+                        <!-- -------------- -->
+                        <td>
+                            <?php require 'partials/modalUpdateTasked.php';?>
+                        </td>    
+
+                        <!-- -------------- -->
+                        <!-- BUTTON DELETE  -->
+                        <!-- -------------- -->
+                        <td>
+                            <?php require 'partials/modalDeleteTasked.php';?>
+                        </td>   
+    
+                    </form>   
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
+</div>
 </section> 
 
 
@@ -128,7 +145,7 @@
                 </button>
             </div>
 
-			<form method="POST">
+			<form method="POST" name="Form_CreateTasked">
 
 				<!-- $_POST['action'] --> 
 				<input type="hidden"  name="action"  value="CreateTasked">
@@ -199,6 +216,8 @@
 </div>
 
 
+
+
 <!-- Script pour initialiser Flatpickr -->
 <script>
 
@@ -207,8 +226,18 @@ $(document).ready(function() {
     // ____________________________
     // FLATPICK | DATEPICKER 
     // ____________________________
-    // flatpickr("#datepicker", {dateFormat: "d.m.Y",  inline: true });  // inline: true === Afficher le calendrier au chargement 
-    flatpickr("#start_datePicker", {dateFormat: "d.m.Y", weekNumbers: true});
+    // dateFormat: "d.m.Y ==>  Format de la date à soumettre
+    // inline: true ==> Afficher le calendrier au chargement 
+    flatpickr("#start_datePicker", {
+        dateFormat: "d.m.Y", 
+        weekNumbers: true,  
+        allowInput: true // prevent "readonly" prop --> required field 
+        
+    });
 
-}) 
+}); 
+
+
+
+
 </script> 

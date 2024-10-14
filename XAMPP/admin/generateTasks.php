@@ -36,10 +36,12 @@ if($_SESSION["login"]) {
     // GENERATOR EXECUTION 
     // generateTasks($from, $to); 
     generateUsersTasks($from, $to); 
-
-
+    $_SESSION['message'] = '<div class="alert alert-success" role="alert"> New <strong>Callendar</strong> generated successfully!</div>'; 
+          
     } 
+
     header('Location: ' . $_SERVER['HTTP_REFERER']); 
+    exit; 
 
     } else {
         // ______________________________________

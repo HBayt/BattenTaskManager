@@ -80,7 +80,7 @@ function updateTasked ($id, $start, $user_id, $task_id, $contacted) {
     $tasked->contacted = $contacted;
 
     $tasked->user_id = $user_id;
-    $user = R::load( 'tasked', $user_id );
+    $user = R::load( 'user', $user_id );
     $tasked->title = $user->name;
  
     // echo "<h1> Ttasked: ".$id.", task: ".$tasked->task_id.", user: ".$tasked->user_id."</h1>"; die(); 

@@ -1,5 +1,6 @@
-<?php
-
+<?php 
+// Update time : 03.10.2024 
+// Author : H. Baytar 
 
 // _______________________________________________
 // FILE admin/admin.php  
@@ -7,17 +8,10 @@
 // _______________________________________________
 
 
-// TESTS 
-// console.log("Message"); console.log(variable); 
-// PHP INTERPRETER STOP TO EXECUTE CODE -> die(); 
-// var_dump(VARIABLE ); 
-
-
 // _______________________________________________
 // CREATE SESSSION 
 // _______________________________________________
 session_start();
-
 
 
 // _______________________________________________
@@ -31,12 +25,9 @@ if($_SESSION["login"]) {
     include '../utils/connectdb.php';
     include '../model/user.php';
     include '../model/group.php';
-    include 'vue/partials/nav.php';
-
+    include 'vue/partials/nav.php'; 
 
     $groups = getGroup(); 
-    // $numOfUsers = countUsers() ; 
-
 
     // IF GROUP USERS 
     if(isset($_GET['group_id'])) {
@@ -45,9 +36,7 @@ if($_SESSION["login"]) {
 
         $group_id = $_GET['group_id'];
         $group = loadGroup($group_id );
-        // echo "<h1> HiHi ".$_GET['group_id']."</h1>"; 
-        // print_r($user); 
-        // die(); 
+        // print_r($group); die(); 
 
         $numOfUsers = countUsersByGroup($group_id) ; 
 
@@ -57,13 +46,16 @@ if($_SESSION["login"]) {
         $numOfUsers = countUsers() ; 
     }
 
-    // IF FORM HTML SENDED -> BUTTON SEND CLICKED (CRUD INSTRUCTIONS )
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
+    // ___________________________________________________________________________________
+    // IF FORM HTML SENDED -> SUBMIT BUTTON CLICKED (FOR CRUD INSTRUCTIONS )
+    // ___________________________________________________________________________________    
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // IF INPUT NAME = 'action' 
         if(isset($_POST['action'])){
-            
+
+            // UPDATE BUTTON CLICKED            
             if ($_POST['action'] == 'alterUser'    
                 && !empty($_POST['id'])               
                 && !empty($_POST['name'])
@@ -72,50 +64,54 @@ if($_SESSION["login"]) {
                 && !empty($_POST['id_group'])                    
             ) {
 
-                // echo "<h1>".$_POST['id']." ".$_POST['name']." ".$_POST['email']." ".$_POST['id_group']."</h1>"; 
-                // die(); 
-
-                // IF INPUT NAME = 'action' AND INPUT VALUE == 'alterUser'
-                // UPDATE USER 
                 updateUser($_POST['id'], $_POST['name'], $_POST['email'],  $_POST['weekdays'], $_POST['id_group']);
+                $_SESSION['message'] = '<div class="alert alert-success" role="alert"> Selected <strong>user</strong> <span style="color:green;">('.$_POST['name'].' )</span> updated successfully!</div>'; 
+
 
             } // end.UPDATE 
+            
+            // DELETE BUTTON CLICKED
             elseif ($_POST['action'] == 'deleteUser') {  
-                // ELSE IF INPUT NAME = 'action' AND INPUT VALUE == 'deleteUser'
-                deleteUser($_POST['id']);
+
+                deleteUser($_POST['id']); 
+                $_SESSION['message'] = '<div class="alert alert-success" role="alert"> Selected <strong>user</strong> <span style="color:green;">(Id = '.$_POST['id'].' )</span> deleted successfully!</div>'; 
+
 
             } // end.DELETE 
+            
+            // CREATE BUTTON CLICKED
             elseif ($_POST['action'] == 'createUser' 
                         && !empty($_POST['name'])
                         && !empty($_POST['email'])
                         && !empty($_POST['weekdays'])
                         && !empty($_POST['id_group'])                    
                     ) {
-                $u = createUser($_POST['name'], $_POST['email'], $_POST['weekdays'], $_POST['id_group']);
 
-                // ALSO ADD USER.GROUP_ID VALUE INTO THE DATABASE 
-                // addUserToGroup($_GET['group_id'], $u);
+                $u = createUser($_POST['name'], $_POST['email'], $_POST['weekdays'], $_POST['id_group']); 
+                $_SESSION['message'] = '<div class="alert alert-success" role="alert"> New <strong>user</strong> <span style="color:green;">('.$_POST['name'].' )</span> created successfully!</div>'; 
+
             }// end.CREATE 
-
-
-
         } 
-
 
         // _________________________________________________________
         // PAGE REDIRECTION AFTER A CRUD ACTION
+        // REDIRECTION / REFRESH TIME
         // _________________________________________________________
-
         if(isset($group_id)) {
             header("Location: user.php?group_id=".$group_id); 
+            exit;
         }else{
             // header("Refresh:0");
-            header("Location: user.php");                  
+            header("Location: user.php");  
+            exit;                            
         }
 
     }
 
-    // REQUIRED/ INCLUDED FILES 
+    // AFTER EACH PAGE CALL (REQUIRED/ INCLUDED FILES)
+    // OR 
+    // AFTER THE EXECUTION OF AN INSTRUCTION ON THE PAGE (CREATE, DELETE) 
+    global $message;   // Déclare a global $message before include it to view 
     require 'vue/user.php';
     require 'vue/partials/footer.php';
 
@@ -124,10 +120,5 @@ if($_SESSION["login"]) {
     // ______________________________________
     // ORIGINAL SERVEUR (LINUX) HEADER 
     // ______________________________________
-    header("Location: /admin/"); // Original KO sur XAMPP 
-
-    // ______________________________________
-    // DEV LOCAL SERVEUR (LOCAL XAMPP) HEADER 
-    // ______________________________________
-    // header("Location: /html/admin/ "); // OK sur XAMPP | Firefox : http://localhost/html/admin/ 
+    header("Location: /admin/");  
 } 

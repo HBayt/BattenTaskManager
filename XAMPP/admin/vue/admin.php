@@ -1,9 +1,22 @@
 <!-- ------------------------------------------------- -->    
+<!-- Update time : 03.10.2024  -->  
+<!-- Author : H. Baytar  -->  
+<!-- Confirmation message when CRUD Operations are executed -->     
+<!-- ------------------------------------------------- -->    
+<section class="container mt-5">
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); // Efface le message après l'affichage
+    }
+    ?>
+</section>
+
+
+<!-- ------------------------------------------------- -->    
 <!-- Page title & Button Create (Insert into db.table ) -->     
 <!-- ------------------------------------------------- -->     
- 
 <section class="container mt-5">
-
 <div class="container">
     <h2>Admin</h2>
 
@@ -20,18 +33,21 @@
 <!-- ------------------------------------------------- -->    
 <!-- Admin user list from MySql DB -->     
 <!-- ------------------------------------------------- --> 
-
-    <table class="table">
+<div class="container">
+    <table class="table table-hover table-striped">
         <thead>
             <tr>
                 <th scope="col">Username</th>
+                <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <?php foreach( $admin as $a ) {?>
             <tr>
+
             <td><?php echo $a->name ?></td>
-            <td align="center">
+            <td></td>            
+            <td align="right"><!-- <td align="center"> --> 
 
                 <!-- ------------------------------------------------- -->    
                 <!-- Modal / Button Delete -->     
@@ -78,6 +94,8 @@
 
         <?php } ?>
     </table>
+    </div>
+
 
     <!-- ------------------------------------------------- -->    
     <!-- Modal window to Create new Administrator  -->     

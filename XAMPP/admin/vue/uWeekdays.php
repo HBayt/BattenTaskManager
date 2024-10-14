@@ -8,6 +8,8 @@
 <!-- ------------------------------------------------- -->    
 <!-- Page title & Button Create (Insert into db.table ) -->     
 <!-- ------------------------------------------------- -->      
+
+<section class="container mt-5">
 <div class="container">
     <table style="width:100%">
     <tr>
@@ -23,12 +25,13 @@
     </table> 
     <hr>
 </div>
+</section>
 
 <!-- ------------------------------------------------- -->    
 <!-- UUSER WEEKDAYS -->     
 <!-- ------------------------------------------------- -->    
-<div class="container mt-5">
-  <table class="table">
+<section class="container mt-5">
+    <table class="table table-hover table-striped">
         <thead>
             <tr>
             <th scope="col">Atelier / Workshop / Werkstatt</th>
@@ -136,6 +139,6 @@
     </table> 
     <br>
     <br>
-</div>
+</section>
 
 

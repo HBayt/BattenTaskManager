@@ -87,6 +87,11 @@ function getUserIdByEmail($email) {
 // _____________________________________________________________________________________________
 function deleteUser($id) {
     $user = R::load( 'user', $id ); 
+
+    // R::exec('DELETE FROM child_table WHERE parent_id = :pid', array('pid' => $parent->id));
+    R::exec('DELETE FROM tasked WHERE user_id = :pid', array('pid' => $id)); // Delete all TASKED (TABLE ROWS)  of current user 
+    R::exec('DELETE FROM vacation WHERE user_id = :pid', array('pid' => $id));  // Delete all VACATION (TABLE ROWS)  of current user 
+    
     R::trash( $user );
 }
 

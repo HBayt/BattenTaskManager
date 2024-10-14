@@ -1,3 +1,18 @@
+<!-- ------------------------------------------------- -->    
+<!-- Update time : 03.10.2024  -->  
+<!-- Author : H. Baytar  -->  
+<!-- Confirmation message when CRUD Operations are executed -->     
+<!-- ------------------------------------------------- -->    
+<section class="container mt-5">
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); // Efface le message après l'affichage
+    }
+    ?>
+</section>
+
+
 <section class="container mt-5">
 
     <!-- ------------------------------------------------- -->    
@@ -22,9 +37,10 @@
 
     <!-- ------------------------------------------------- -->    
     <!-- Group list from MySQL DB  -->     
-    <!-- ------------------------------------------------- -->    
-    <div class="container mt-5">
-    <table class="table">
+    <!-- ------------------------------------------------- -->   
+     
+    <div class="container">
+    <table class="table table-hover table-striped">
             <thead>
                 <tr>
                 <th scope="col">Name</th>
@@ -35,53 +51,58 @@
             </thead>
             <?php foreach( $group as $g ) {?>
                 <tr>
-                <td><?php echo $g->name ?></td>
-                <td><?php echo $g->libelle ?></td>
-                <td>
+                    <td><?php echo $g->name ?></td>
+                    <td><?php echo $g->libelle ?></td>
 
-                <!-- ------------------------------------------------- -->    
-                <!-- Delete Button  -->     
-                <!-- ------------------------------------------------- -->    
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $g->id ?>">
-                    Delete
-                </button>
+                    <!-- ------------------------------------------------- -->    
+                    <!-- BOUTTON GROUP USERS  --> 
+                    <!-- ------------------------------------------------- -->    
+                    <td>
+                        <a href="/admin/user.php?group_id=<?php echo $g->id ?>"><button type="button" class="btn btn-primary">Group users</button></a>
+                    </td>
 
-                <!-- ------------------------------------------------- -->    
-                <!-- Modal for Delete action (CRUD) -->     
-                <!-- ------------------------------------------------- -->    
-                <div class="modal fade" id="deleteModal<?php echo $g->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                    <!-- ------------------------------------------------- -->    
+                    <!-- Delete Button  -->     
+                    <!-- ------------------------------------------------- -->    
+                    <td>
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $g->id ?>">
+                            Delete
+                        </button>
 
-
-                        <!-- Modal header --> 
-                        <div class="modal-header">
-                            <!-- Modal window / Title --> 
-                            <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Are you sure ?</span></h5>
-                            <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                        <!-- ------------------------------------------------- -->    
+                        <!-- Modal for Delete action (CRUD) -->     
+                        <!-- ------------------------------------------------- -->    
+                        <div class="modal fade" id="deleteModal<?php echo $g->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
 
 
-                        <form method="POST">
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <!-- Modal header --> 
+                                <div class="modal-header">
+                                    <!-- Modal window / Title --> 
+                                    <h5 class="modal-title fs-4 luckiest" id="exampleModalLabel"><span style="color:blue;">Are you sure ?</span></h5>
+                                    <button type="button" class="close fs-4 position-absolute top-0 end-0 m-2" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+
                                 <form method="POST">
-                                    <input type="hidden"  name="id" value="<?php echo $g->id ?>">
-                                    <input type="hidden"  name="method"  value="DELETE">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <form method="POST">
+                                            <input type="hidden"  name="id" value="<?php echo $g->id ?>">
+                                            <input type="hidden"  name="method"  value="DELETE">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
                                 </form>
+                                </div>
                             </div>
-                        </form>
                         </div>
-                    </div>
-                </div>
-                </td>
+                    </td>
 
 
-                <!-- BOUTTON GROUP USERS  --> 
-                <td><a href="/admin/user.php?group_id=<?php echo $g->id ?>"><button type="button" class="btn btn-primary">Group users</button></a></td>
                 </tr>
                 
             <?php } ?>

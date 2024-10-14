@@ -1,18 +1,13 @@
-<?php
-// admin/mail.php 
+<?php 
+// _______________________________________________
+// Update time : 03.10.2024 
+// Author : H. Baytar 
+// _______________________________________________
+
 
 session_start(); 
 
-/*
-if (!empty($_SERVER['REMOTE_ADDR'])) {
 
-    // If a "remote" address is set, we know that this is not a CLI call
-    header('HTTP/1.1 403 Forbidden');
-    die('Access denied. Go away, shoo!');
-    
-  }
-
-*/ 
 if($_SESSION["login"]) {
     
     require '../config.php';
@@ -25,57 +20,27 @@ if($_SESSION["login"]) {
     require __DIR__ . '/../model/task.php';
 
     // ____________________________________________ 
-    // Manage Addressees (Mail Receivers) for View /vue/addressee.php 
+    // Variables for View /vue/addressee.php 
     // ____________________________________________
-    $addressees = getAddressee (); // var_dump($addressees ); 
-    $header_location = false; 
-    $numOfAddressees = countAddressees() ; 
+    $addressees = getAddressee (); // Datas from MySQL 
+    $numOfAddressees = countAddressees() ;  
 
-
-    // ____________________________________________
-    // Manage Mail 
-     // ____________________________________________
-    createDefaultMail(DEFAULT_MAIL); // DEFAULT_MAIL (//Default mail message) -> Variable from /html/config.php 
+    createDefaultMail(DEFAULT_MAIL); // DEFAULT_MAIL -> Variable from /html/config.php  (for Default mail message)
     $mail = getMail();
 
-
-    // Vérification de la soumission du formulaire en POST
+    // ____________________________________________ 
+    // IF SYSTEM GET HTTP POST REQUEST 
+    // ____________________________________________ 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-    
-        if(isset($_POST) && isset($_POST['textarea_mail'])) {
+        if(isset($_POST['textarea_mail'])) {
             updateMail($_POST['textarea_mail']);
-            $header_location = true; 
-
-            // REDIRECTION / REFRESH TIME
-            header("Location: /admin/addressee.php");  // header("Refresh:0"); 
-
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> <strong>Email content</strong> updated successfully!</div>'; 
         }
 
-        // ____________________________________________
-        // TEST CHECK LIST OF RECIPIENTS / ADDRESSEES 
-        // ____________________________________________
-        /* 
-        if(isset($_POST['send_mail']) && isset($_POST['check_list'])){//to run PHP script on submit
-            
-            if(!empty($_POST['check_list'])){
-                
-                $recipients = $_POST['check_list']; 
-                foreach($_POST['check_list'] as $selected){  
-                    echo "Recipient : ".$selected."<br>"; 
-                }
-                echo "<br>"; 
-            }
-        } // OK 
-        */ 
-
-
-        // ____________________________________________
-        // SI Bouton SEND cliqué
-        // ____________________________________________
-
-        // CREATE UNE LISTE D'EXPEDITEURS (ADDRESSEES) A PARTIR DES ID SELECTIONNES 
+        // Check if a Addressee is selected from HTML Form 
+        // IF the Addressee is selected, THEN add it to List 
+        // FINALY Send a mail to Addressees List 
         if(isset($_POST['send_mail']) && isset($_POST['check_list'])){//to run PHP script on submit
 
             if(!empty($_POST['check_list'])){
@@ -88,23 +53,20 @@ if($_SESSION["login"]) {
                 foreach ($taskeds as $tasked){
                     $date = new DateTime($tasked->start);
                     if($date == $now){  
-                       
-                        // TEST : sendmail($user, $tasked);   
+                        // ____________________________________________
+                        // SEND MAIL TO RECIPIENTS LIST 
+                        // ____________________________________________  
                         $sended = sendmail($bcc_recipients, $tasked); 
                         if($sended == true){
+
                             updateContacted($tasked->id, $tasked->task_id, $tasked->user_id, "YES"); // FROM Model mail.php
-                            // Afficher destinataires liste 
+                            // Confirmation Message for user displayed in the view 
+                            $_SESSION['message'] = '<div class="alert alert-success" role="alert">  <strong>Email</strong> sended successfully!</div>'; 
                         }
                     }
                 }
             }
-
-            $header_location = true; 
-
-            // REDIRECTION / REFRESH TIME
-            header("Location: /admin/addressee.php");  // header("Refresh:0"); 
-            
-        } // OK 
+        } 
 
 
         // _________________________________________________
@@ -115,10 +77,8 @@ if($_SESSION["login"]) {
             $email = $_POST['addr_email']; 
 
             createAddressee ($name, $email); 		
-            $header_location = true; 
-
-            // REDIRECTION / REFRESH TIME
-            header("Location: /admin/addressee.php");  // header("Refresh:0");             
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> New <strong>recipient/addreessee</strong> <span style="color:green;">('.$name." / ".$email.')</span> created successfully!</div>'; 
+           
         }
 
 
@@ -129,10 +89,8 @@ if($_SESSION["login"]) {
             $id = $_POST['id_addressee']; 
 
             deleteAddressee($id); 
-            $header_location = true; 
-
-            // REDIRECTION / REFRESH TIME
-            header("Location: /admin/addressee.php");  // header("Refresh:0"); 
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> Selected <strong>recipient/addreessee</strong> <span style="color:green;">( Id = '.$id.')</span> deleted successfully!</div>'; 
+               
         }
 
 
@@ -146,21 +104,28 @@ if($_SESSION["login"]) {
             $email = $_POST['addr_email']; 
 
             updateAddressee($id, $name, $email); 	
-            $header_location = true; 
+            $_SESSION['message'] = '<div class="alert alert-success" role="alert"> Selected <strong>recipient/addreessee</strong> <span style="color:green;">('.$name." / ".$email.')</span> updated successfully!</div>'; 
                     
-            // REDIRECTION / REFRESH TIME
-            header("Location: /admin/addressee.php");  // header("Refresh:0"); 
         }
 
 
+        // _________________________________________________________
+        // PAGE REDIRECTION AFTER A CRUD ACTION
+        // REDIRECTION / REFRESH TIME
+        // _________________________________________________________
+        header("Location: /admin/addressee.php");  // header("Refresh:0");   
+        exit;
 
     }
 
-    // _____________________________________________________________________________________________________________________
-    // _____________________________________________________________________________________________________________________
 
-    // Vues
-    include 'vue/addressee.php';    
+    // _________________________________________________________
+    // AFTER EACH PAGE CALL (REQUIRED/ INCLUDED FILES)
+    // OR 
+    // AFTER THE EXECUTION OF AN INSTRUCTION ON THE PAGE (CREATE, DELETE) 
+    // _________________________________________________________
+    global $message;   // Déclare a global $message before include it to view 
+    include 'vue/addressee.php';  
     require 'vue/partials/footer.php'; 
 
 

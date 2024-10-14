@@ -1,3 +1,17 @@
+<!-- ------------------------------------------------- -->    
+<!-- Update time : 03.10.2024  -->  
+<!-- Author : H. Baytar  -->  
+<!-- Confirmation message when CRUD Operations are executed -->     
+<!-- ------------------------------------------------- -->    
+<section class="container mt-5">
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); // Efface le message après l'affichage
+    }
+    ?>
+</section>
+
 
 <?php 
 // Définir le code HTML comme une chaîne de caractères
@@ -19,6 +33,7 @@ $infoMessage = <<<HTML
             <li> 
                 <strong>To display a calender for start/end date, just click on the wanted input.</strong><br>
             </li> 
+            <li>If you save a holiday with a non-existent<strong> user ID </strong>in the database, the holiday will not be displayed. </li> 
         </ul> 
 
 
@@ -26,8 +41,6 @@ $infoMessage = <<<HTML
     </div>
 </div>
 HTML;
-
-
 ?> 
 
 
@@ -68,7 +81,8 @@ HTML;
     <!-- -------------- -------------- -------------- -->
     <!-- TABLE VACATION  -->
     <!-- -------------- -------------- -------------- -->
-    <table class="table">
+    <div class="container">
+    <table class="table table-hover table-striped">
          <!-- TABLE HEADE  -->
         <thead>
             <tr>
@@ -97,18 +111,22 @@ HTML;
 
                      <!-- FORM  -->
                     <form method="POST">
+
+                        <!-- -------------- -->
+                        <!-- ACTION UPDATE  -->
+                         <!-- -------------- -->
+                        <td>
+                            <?php require 'partials/modalUpdateVacation.php';?>
+                        </td>        
+
                         <!-- -------------- -->
                         <!-- BUTTON DELETE  -->
                          <!-- -------------- -->
                         <td>
                             <input type="hidden"  name="id_vacation"  value="<?php echo $vacation['id']?>">
                             <input type="hidden"  name="id_email"  value="<?php echo $vacation['email']?>">
-                            <button type="submit" class="btn btn-secondary" value="delete_vacation" name="delete_vacation">Delete</button></td>
-
-                        <!-- -------------- -->
-                        <!-- ACTION UPDATE  -->
-                         <!-- -------------- -->
-                        <td><?php require 'partials/modalUpdateVacation.php';?></td>              
+                            <button type="submit" class="btn btn-secondary" value="delete_vacation" name="delete_vacation">Delete</button>
+                        </td>
                     </form>    
                 </tr>
             <?php } ?>
@@ -216,20 +234,33 @@ $(document).ready(function() {
     // FLATPICK | DATEPICKER 
     // ____________________________
     // flatpickr("#datepicker", {dateFormat: "d.m.Y",  inline: true });  // inline: true === Afficher le calendrier au chargement 
-    flatpickr("#start_datePicker", {dateFormat: "d.m.Y", weekNumbers: true});
-    flatpickr("#end_datePicker", {dateFormat: "d.m.Y", weekNumbers: true});
+    flatpickr("#start_datePicker", {
+        dateFormat: "d.m.Y", 
+        weekNumbers: true,  
+        allowInput: true // prevent "readonly" prop --> required field        
+    });
 
+    flatpickr("#end_datePicker", {
+        dateFormat: "d.m.Y", 
+        weekNumbers: true, 
+        allowInput: true // prevent "readonly" prop --> required field 
+    });
 
     $('#start_datePicker').change(function() { 
         let startDate = document.querySelector('#start_datePicker')._flatpickr.selectedDates[0];
-        flatpickr("#end_datePicker", {dateFormat: "d.m.Y", minDate: startDate});
+        flatpickr("#end_datePicker", {dateFormat: "d.m.Y", minDate: startDate, allowInput: true});
     }) 
 
     $('#end_datePicker').change(function() {  
         let endDate = document.querySelector('#end_datePicker')._flatpickr.selectedDates[0];
-        flatpickr("#start_datePicker", {dateFormat: "d.m.Y", maxDate: endDate});
+        flatpickr("#start_datePicker", {dateFormat: "d.m.Y", maxDate: endDate, allowInput: true});
     }) 
-
 
 }) 
 </script> 
+
+
+
+
+
+

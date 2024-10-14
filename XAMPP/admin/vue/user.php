@@ -1,3 +1,17 @@
+<!-- ------------------------------------------------- -->    
+<!-- Update time : 03.10.2024  -->  
+<!-- Author : H. Baytar  -->  
+<!-- Confirmation message when CRUD Operations are executed -->     
+<!-- ------------------------------------------------- -->    
+<section class="container mt-5">
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); // Efface le message après l'affichage
+    }
+    ?>
+</section>
+
 
 <?php 
 // Définir le code HTML comme une chaîne de caractères
@@ -27,11 +41,7 @@ $infoMessage = <<<HTML
    <hr> 
 </div>
 HTML;
-
-
 ?> 
-
-
 
 <div class="container mt-5">
     <nav aria-label="breadcrumb">
@@ -81,8 +91,8 @@ HTML;
 <!-- ------------------------------------------------- -->    
 <!-- User list from DB MySQL -->     
 <!-- ------------------------------------------------- -->    
-<div class="container mt-5">
-  <table class="table">
+<div class="container">
+    <table class="table table-hover table-striped">
         <thead>
             <tr>
             <th scope="col">First and lastname</th>

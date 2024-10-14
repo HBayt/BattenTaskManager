@@ -1,3 +1,19 @@
+<!-- ------------------------------------------------- -->    
+<!-- Update time : 03.10.2024  -->  
+<!-- Author : H. Baytar  -->  
+<!-- Confirmation message when CRUD Operations are executed -->     
+<!-- ------------------------------------------------- -->    
+<section class="container mt-5">
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); // Efface le message après l'affichage
+    }
+    ?>
+</section>
+
+
+
 <?php  
 
 // Définir le code HTML comme une chaîne de caractères
@@ -38,30 +54,30 @@ $infoMessage = <<<HTML
 </div>
 HTML;
 
+// Définir le code HTML comme une chaîne de caractères
+$title_table_recipients = <<<HTML
+    <br>
+    <h2>Addressees / Recipients</h2>
+    <h4>{$numOfAddressees} e-mail recipients found</h4>
+    <br>
+HTML;
 
 // Définir le code HTML comme une chaîne de caractères
 $table_recipients = <<<HTML
-<table class="table">
-<thead><tr>
-    <th scope="col">Select</th>
-    <th scope="col">Name</th>
-     <th scope="col">Email</th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-    <th scope="col" style="text-align: right;">
-HTML;
-
-
-$title_table_recipients = <<<HTML
-<br>
-<h2>Addressees / Recipients</h2>
-<h4>{$numOfAddressees} e-mail recipients found</h4>
-<br>
+<div class="container">
+    <table class="table table-hover table-striped">
+    <thead><tr>
+        <th scope="col">Select</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    
 HTML;
 
 
 ?> 
-
 
 
 
@@ -114,16 +130,16 @@ HTML;
         <!-- ADDRESSEES / RECIPIENTS LIST FROM MYSQL DB --> 
         <!-- ------------------------------------------------- -->  
         <?php echo $table_recipients  ?>
-
                     <!-- ------------------------------------------------- -->  
                     <!-- Link to a Modal window for creating a new Addressee -->  
                     <!-- ------------------------------------------------- -->   
-                    <th scope="col" style="text-align: right;"><?php require 'partials/modalAddresseeCreate.php';?> <!-- CREATE NEW ADDRESSEE (INSERT INTO DB) -->
-
+                    <th scope="col">
+                        <div style="text-align: right;">
+                            <?php require 'partials/modalAddresseeCreate.php';?> <!-- CREATE NEW ADDRESSEE (INSERT INTO DB) -->
+                        </div>
                     </th>
                 </tr>
             </thead>
-
                 <tbody>
                     <?php foreach ( $addressees as $recipient ) {?>
                         <tr>   <!-- CHECK LIST FOR RECIPIENTS --> 
@@ -133,6 +149,9 @@ HTML;
                             <td><?php echo $recipient['name']?></td> 
                             <td><?php echo $recipient['email']?></td> 
 
+                            <td> </td>  
+                            <td> </td> 
+
                             <!-- ------------------------------------------------- -->  
                             <!-- Link to a Modal window for Updating an Addressee -->  
                             <!-- ------------------------------------------------- -->   
@@ -141,12 +160,12 @@ HTML;
                             </td>
 
 
-                                <!-- ------------------------------------------------- -->  
-                                <!--  Button DELETE (RECIPIENT) to a Modal window  --> 
-                                <!-- ------------------------------------------------- -->  
-                                <td>
-                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteAddresseeModal<?php  echo $recipient['id']?>"> Delete </button>
-                                </td>
+                            <!-- ------------------------------------------------- -->  
+                            <!--  Button DELETE (RECIPIENT) to a Modal window  --> 
+                            <!-- ------------------------------------------------- -->  
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteAddresseeModal<?php  echo $recipient['id']?>"> Delete </button>
+                            </td>
 
                                 <!-- ------------------------------------------------- -->  
                                 <!-- Modal window to DELETE a Recipient -->
@@ -176,7 +195,9 @@ HTML;
                                         </div>
                                     </div>
                                 </div><!-- end.modal-windows.delete()  --> 
-                            </td>
+
+
+                    
                         </tr> 
                     <?php }?><!-- end.foreach() LOOP --> 
                 </tbody>

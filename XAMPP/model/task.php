@@ -488,9 +488,13 @@ function generateUsersTasks($today, $lastDay){
                 shuffle($GLOBALS['globalUsersByGroups']);  // foreach($GLOBALS['globalUsersByGroups'] as $aUser){
                 while($generated == false){
 
-                    $randomKey = array_rand($GLOBALS['globalUsersByGroups']);// Utiliser array_rand pour obtenir une clé aléatoire
-                    $aUser = $GLOBALS['globalUsersByGroups'][$randomKey];
-                    // echo '<span style="color:blue;">'."--- rand : ".$aUser['name']."/ task : ".$aTask["task_libelle"]." / day : ".$dDay."<br>".'</span>';   
+                    if(! empty($GLOBALS['globalUsersByGroups'])){
+
+                        $randomKey = array_rand($GLOBALS['globalUsersByGroups']);// Utiliser array_rand pour obtenir une clé aléatoire
+                        $aUser = $GLOBALS['globalUsersByGroups'][$randomKey];
+                        // echo '<span style="color:blue;">'."--- rand : ".$aUser['name']."/ task : ".$aTask["task_libelle"]." / day : ".$dDay."<br>".'</span>';   
+                    }
+
 
                     if(
                         (empty($GLOBALS['globalManyGroupsOneTask_users'])|| !in_array($aUser, $GLOBALS['globalManyGroupsOneTask_users']) )
